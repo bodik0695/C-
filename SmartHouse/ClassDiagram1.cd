@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="SmartHouse.Menu">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAAACAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartHouse.Device">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAIA=</HashCode>
+      <FileName>Logic\Device.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartHouse.Fridge">
+    <Position X="3.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgCIIAAAIQEAAAAAQAAIAAAQAACAAAQAAAAAAAEAIA=</HashCode>
+      <FileName>Logic\Fridge.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartHouse.Heater">
+    <Position X="5.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIBAAIAAAAAAAAAAIAAIAAACAAAAAAAAAAgEBIA=</HashCode>
+      <FileName>Logic\Heater.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartHouse.AirConditioning">
+    <Position X="7" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAYAAAIAAAAAAIAAAABACAAAAAAgABAQEAIA=</HashCode>
+      <FileName>Logic\AirConditioning.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartHouse.TV">
+    <Position X="8.75" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="SmartHouse.Device" ManuallyRouted="true" FixedToPoint="true">
+      <Path>
+        <Point X="8.25" Y="2.247" />
+        <Point X="8.25" Y="3.189" />
+        <Point X="9.5" Y="3.189" />
+        <Point X="9.5" Y="3.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>EQAAEMAgIAAIAAAAAAAAAAAAAAAAEAAABAAAAAAAAIA=</HashCode>
+      <FileName>Logic\TV.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartHouse.MediaPlayer">
+    <Position X="10.5" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="SmartHouse.Device" ManuallyRouted="true">
+      <Path>
+        <Point X="8.25" Y="2.247" />
+        <Point X="8.25" Y="3.189" />
+        <Point X="11.25" Y="3.189" />
+        <Point X="11.25" Y="3.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>EAAgEMAAAIQAAAAIAAACAAEIAAAAEABApAAAEAAAAIA=</HashCode>
+      <FileName>Logic\MediaPlayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartHouse.Freezer">
+    <Position X="3.5" Y="8.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIIIACAAAAEAEAAACAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Logic\Freezer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SmartHouse.Sound">
+    <Position X="3.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAEEAAAAAAAIAAAAAAAAAAAAAAEAAIAAKAAAAAAgA=</HashCode>
+      <FileName>Modules\Sound.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SmartHouse.Temperature">
+    <Position X="8.75" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAEAAAAAAAIAAAAAACAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\Temperature.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SmartHouse.Disc">
+    <Position X="10.5" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\Disc.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SmartHouse.Mode">
+    <Position X="12.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\Mode.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SmartHouse.Channel">
+    <Position X="7" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAIAAIAAABABAAAAAAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\Channel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SmartHouse.TrackControl">
+    <Position X="5.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAIAAAEQgAAAAAAACAAAIAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\TrackControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SmartHouse.Display">
+    <Position X="13" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Display.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="SmartHouse.ISound">
+    <Position X="3.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAEEAAAAAAAIAAAAAAAAAAAAAAEAAAAAIAAAAAAgA=</HashCode>
+      <FileName>Interfaces\ISound.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SmartHouse.IChannel">
+    <Position X="7" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAIAAIAAABAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IChannel.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SmartHouse.ITemperature">
+    <Position X="8.75" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAEAAAAAAAIAAAAAACAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ITemperature.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SmartHouse.ITrackControl">
+    <Position X="5.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAAAAAAACAAAIAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\ITrackControl.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SmartHouse.IMode">
+    <Position X="12.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IMode.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="SmartHouse.IDisc">
+    <Position X="10.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAEAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IDisc.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="SmartHouse.FridgeModes">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAgAAAAAAAAAAAAICAAAAAA=</HashCode>
+      <FileName>Enums\FridgeModes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SmartHouse.HeaterModes">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\HeaterModes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SmartHouse.FreezerModes">
+    <Position X="14.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Enums\FreezerModes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SmartHouse.AirConditioningModes">
+    <Position X="16.5" Y="2.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAABAAAQAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Enums\AirConditioningModes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SmartHouse.UniversalMode">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Enums\UniversalMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="SmartHouse.PlayerModes">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACgAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Enums\PlayerModes.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
