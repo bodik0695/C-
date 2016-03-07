@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SmartHouse
 {
-    public class TV : Device
+    public class TV : Device, ITV
     {
         public Sound Sound { get; set; }
         public Channel Channel { get; set; }
@@ -61,6 +61,22 @@ namespace SmartHouse
         public virtual void SoundOn()
         {
             Sound.SoundOn();
+        }
+
+        public override string ToString()
+        {
+            string power;
+            string data = "";
+            if (Power == true)
+            {
+                power = "включен";
+            }
+            else
+            {
+                power = "выключен";
+            }
+            data = "Состояние: " + power + ", Канал: " + Channel.CurrentChannel + ", Громкость: " + Sound.CurrentVolume;
+            return data;
         }
     }
 }

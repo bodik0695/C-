@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SmartHouse
 {
-    public class MediaPlayer : Device
+    public class MediaPlayer : Device, IMediaPlayer
     {
         public Sound Sound { get; set; }
         public TrackControl TrackControl { get; set; }
@@ -93,7 +93,7 @@ namespace SmartHouse
             TrackControl.CurrentDiskName = d.Name;
             TrackControl.Tracks = d.Tracks;
             TrackControl.NumberOfTrack = d.NumberOfTracks;
-            TrackControl.CurrentTrackName = d.Tracks[TrackControl.CurrentTrack - 1]; 
+            TrackControl.CurrentTrackName = d.Tracks[TrackControl.CurrentTrack - 1];
 
         }
 
@@ -104,6 +104,44 @@ namespace SmartHouse
             string[] s = new string[0];
             TrackControl.Tracks = s;
             TrackControl.CurrentTrackName = "";
+        }
+
+        public override string ToString()
+        {
+            string power;
+            string discPresence = "";
+            string mode = "";
+            string data = "";
+            if (DiscPresence == true)
+            {
+                discPresence = "диск " + "\"" + TrackControl.CurrentDiskName + "\"" + " обнаружен";
+            }
+            else
+            {
+                discPresence = "отсутствует";
+            }
+            if (Power == true)
+            {
+                power = "включен";
+            }
+            else
+            {
+                power = "выключен";
+            }
+            if (Mode.CurrentMode == (UniversalMode)PlayerModes.pause)
+            {
+                mode = "пауза";
+            }
+            else if (Mode.CurrentMode == (UniversalMode)PlayerModes.play)
+            {
+                mode = "проигрывание";
+            }
+            else if (Mode.CurrentMode == (UniversalMode)PlayerModes.stop)
+            {
+                mode = "остановлен";
+            }
+            data = "Состояние: " + power + ", Режим: " + mode + ", Количество треков: " + TrackControl.Tracks.Length + ", Текущий трек: " + TrackControl.CurrentTrack + "-" + "\"" + TrackControl.CurrentTrackName + "\"" + ", Громкость: " + Sound.CurrentVolume + ", Наличие диска: " + discPresence;
+            return data;
         }
     }
 }

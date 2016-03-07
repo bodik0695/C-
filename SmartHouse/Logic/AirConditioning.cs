@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SmartHouse
 {
-    public class AirConditioning : Device
+    public class AirConditioning : Device, IAirConditioning
     {
         public int MaxHeatingModeTemperatureValue { get; set; }
         public int MinCoolingModeTemperatureValue { get; set; }
@@ -85,6 +85,35 @@ namespace SmartHouse
         {
             Mode.CurrentMode = (UniversalMode)AirConditioningModes.ventilation;
             Temperature.CurrentTemperature = TempForModeVentilation;
+        }
+
+        public override string ToString()
+        {
+            string mode = "";
+            string power;
+            string data = "";
+            if (Power == true)
+            {
+                power = "включен";
+            }
+            else
+            {
+                power = "выключен";
+            }
+            if (Mode.CurrentMode == (UniversalMode)AirConditioningModes.cooling)
+            {
+                mode = "охлаждение";
+            }
+            else if (Mode.CurrentMode == (UniversalMode)AirConditioningModes.heating)
+            {
+                mode = "обогрев";
+            }
+            else if (Mode.CurrentMode == (UniversalMode)AirConditioningModes.ventilation)
+            {
+                mode = "вентиляция";
+            }
+            data = "Состояние: " + power + ", Режим: " + mode + ", Температура: " + Temperature.CurrentTemperature;
+            return data;
         }
     }
 }

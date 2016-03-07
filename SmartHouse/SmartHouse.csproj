@@ -43,9 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeviceCreator.cs" />
+    <Compile Include="Interfaces\IAirConditioning.cs" />
+    <Compile Include="Interfaces\IDevice.cs" />
+    <Compile Include="Interfaces\IFridge.cs" />
+    <Compile Include="Interfaces\IHeater.cs" />
+    <Compile Include="Interfaces\IMediaPlayer.cs" />
+    <Compile Include="Interfaces\ITV.cs" />
     <Compile Include="Modules\Channel.cs" />
     <Compile Include="Modules\Disc.cs" />
-    <Compile Include="Graphics\Display.cs" />
     <Compile Include="Enums\AirConditioningModes.cs" />
     <Compile Include="Enums\ChannelList.cs" />
     <Compile Include="Enums\FreezerModes.cs" />
@@ -62,7 +68,7 @@
     <Compile Include="Logic\Freezer.cs" />
     <Compile Include="Logic\Fridge.cs" />
     <Compile Include="Logic\Heater.cs" />
-    <Compile Include="Logic\IFreezer.cs" />
+    <Compile Include="Interfaces\IFreezer.cs" />
     <Compile Include="Logic\IFreezer1.cs" />
     <Compile Include="Logic\MediaPlayer.cs" />
     <Compile Include="Logic\TemperatureDevice.cs" />

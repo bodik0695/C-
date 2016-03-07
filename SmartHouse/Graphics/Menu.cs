@@ -6,30 +6,41 @@ using System.Text.RegularExpressions;
 
 namespace SmartHouse
 {
-    public static class Menu
+    public class Menu
     {
-        public static void ConsoleMenu()
+        public IFridge Fridge { get; set; }
+        public IHeater Heater { get; set; }
+        public IFreezer Freezer { get; set; }
+        public IAirConditioning AirConditioning { get; set; }
+        public ITV TV { get; set; }
+        public IMediaPlayer MediaPlayer { get; set; }
+        public Menu()
+        { }
+        public Menu(IFridge fridge, IHeater heater, IFreezer freezer, IAirConditioning airConditioning, ITV tV, IMediaPlayer mediaPlayer)
         {
-            IDictionary<string, Device> allDevices = new Dictionary<string, Device>();
-            IDictionary<string, Disc> allDisc = new Dictionary<string, Disc>();
-            allDevices.Add("Fridge1", new Fridge(false, FridgeModes.normal, 6, 4, 7, 0, new Temperature(4, 0, 8), new Mode()));
-            allDevices.Add("Freezer1", new Freezer(FreezerModes.freezing, -24, -18, -12, new Temperature(-18, -24, -12), new Mode()));
-            allDevices.Add("Heater1", new Heater(false, HeaterModes.inRoom, 25, 10, new Temperature(10, 0, 40), new Mode()));
-            allDevices.Add("AirConditioning1", new AirConditioning(false, AirConditioningModes.cooling, 20, 5, 20, new Temperature(20, -5, 35), new Mode()));
-            allDevices.Add("TV1", new TV(false, new Sound(10, 0, 100, 1), new Channel(1, 1, 100)));
-            allDevices.Add("MediaPlayer1", new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()));
-            string[] tracks = new string[] { "one", "two", "thre" };
-            Disc disc = new Disc("Пробный", tracks);
-            MediaPlayer m = (MediaPlayer)allDevices["MediaPlayer1"];
-            m.InsertDisc(disc);
-            Display d = new Display();
-
+            Fridge = fridge;
+            Heater = heater;
+            Freezer = freezer;
+            AirConditioning = airConditioning;
+            TV = tV;
+            MediaPlayer = mediaPlayer;
+        }
+        public void ConsoleMenu()
+        {
+            DeviceCreator dc = new DeviceCreator();
+            IDictionary<string, IDevice> AllDevices = new Dictionary<string, IDevice>();
+            AllDevices.Add("Fridge", Fridge);
+            AllDevices.Add("Freezer", Freezer);
+            AllDevices.Add("Heater", Heater);
+            AllDevices.Add("AirConditioning", AirConditioning);
+            AllDevices.Add("TV", TV);
+            AllDevices.Add("MediaPlayer", MediaPlayer);
             while (true)
             {
                 Console.Clear();
-                foreach (var name in allDevices)
+                foreach (var name in AllDevices)
                 {
-                    Console.WriteLine("Устройство: " + name.Key + ". " + d.ShowSpecificationDevice(allDevices[name.Key]));
+                    Console.WriteLine("Устройство: " + name.Key + ". " + name.Value);
                 }
                 Console.WriteLine();
                 Console.Write("Введите команду: ");
@@ -57,36 +68,34 @@ namespace SmartHouse
                     Console.ReadKey();
                     continue;
                 }
-                if (commands[0].ToLower() == "add" && !allDevices.ContainsKey(commands[1]))
+                if (commands[0].ToLower() == "add" && !AllDevices.ContainsKey(commands[1]))
                 {
                     string regex = @"Fridge|Freezer|Heater|AirConditioning|TV|MediaPlayer\w*";
                     if (Regex.IsMatch(commands[1], regex))
                     {
                         if (commands[1].Contains("Fridge"))
                         {
-                            allDevices.Add(commands[1], new Fridge(false, FridgeModes.normal, 6, 4, 7, 0, new Temperature(4, 0, 8), new Mode()));
+                            AllDevices.Add(commands[1], dc.CreateFridge());
                         }
                         if (commands[1].Contains("Freezer"))
                         {
-                            allDevices.Add(commands[1], new Freezer(FreezerModes.freezing, -24, -18, -12, new Temperature(-18, -24, -12), new Mode()));
+                            AllDevices.Add(commands[1], dc.CreateFreezer());
                         }
                         if (commands[1].Contains("Heater"))
                         {
-                            allDevices.Add(commands[1], new Heater(false, HeaterModes.inRoom, 25, 10, new Temperature(10, 0, 40), new Mode()));
+                            AllDevices.Add(commands[1], dc.CreateHeater());
                         }
                         if (commands[1].Contains("AirConditioning"))
                         {
-                            allDevices.Add(commands[1], new AirConditioning(false, AirConditioningModes.cooling, 20, 5, 20, new Temperature(20, -5, 35), new Mode()));
+                            AllDevices.Add(commands[1], dc.CreateAirConditioning());
                         }
                         if (commands[1].Contains("TV"))
                         {
-                            allDevices.Add(commands[1], new TV(false, new Sound(10, 0, 100, 1), new Channel(1, 1, 100)));
+                            AllDevices.Add(commands[1], dc.CreateTV());
                         }
                         if (commands[1].Contains("MediaPlayer"))
                         {
-                            allDevices.Add(commands[1], new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()));
-                            MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                            mp.InsertDisc(disc);
+                            AllDevices.Add(commands[1], dc.CreateMediaPlayer());
                         }
                     }
                     else
@@ -97,257 +106,257 @@ namespace SmartHouse
                     }
                     continue;
                 }
-                if (commands[0].ToLower() == "add" && allDevices.ContainsKey(commands[1]))
+                if (commands[0].ToLower() == "add" && AllDevices.ContainsKey(commands[1]))
                 {
                     Console.WriteLine("Устройство с таким именем уже существует");
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
                     Console.ReadKey();
                     continue;
                 }
-                if (allDevices.ContainsKey(commands[1]))
+                if (AllDevices.ContainsKey(commands[1]))
                 {
                     switch (commands[0].ToLower())
                     {
                         case "on":
-                            allDevices[commands[1]].On();
+                            AllDevices[commands[1]].On();
                             break;
                         case "off":
-                            allDevices[commands[1]].Off();
+                            AllDevices[commands[1]].Off();
                             break;
                         case "del":
-                            allDevices.Remove(commands[1]);
+                            AllDevices.Remove(commands[1]);
                             break;
                         case "incr_t":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new Fridge(false, FridgeModes.normal, 6, 4, 7, 0, new Temperature(4, 0, 8), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (Fridge.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    Fridge f = (Fridge)allDevices[commands[1]];
-                                    f.IncreaseTemperature();
+                                    IFridge device = (IFridge)AllDevices[commands[1]];
+                                    device.IncreaseTemperature();
                                 }
-                                else if (new Heater(false, HeaterModes.inRoom, 25, 10, new Temperature(10, 0, 40), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                else if (Heater.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    Heater h = (Heater)allDevices[commands[1]];
-                                    h.IncreaseTemperature();
+                                    IHeater device = (IHeater)AllDevices[commands[1]];
+                                    device.IncreaseTemperature();
                                 }
-                                else if (new AirConditioning(false, AirConditioningModes.cooling, 20, 5, 20, new Temperature(20, -5, 35), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                else if (AirConditioning.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    AirConditioning a = (AirConditioning)allDevices[commands[1]];
-                                    a.IncreaseTemperature();
+                                    IAirConditioning device = (IAirConditioning)AllDevices[commands[1]];
+                                    device.IncreaseTemperature();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "decr_t":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new Fridge(false, FridgeModes.normal, 6, 4, 7, 0, new Temperature(4, 0, 8), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (Fridge.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    Fridge f = (Fridge)allDevices[commands[1]];
-                                    f.DecreaseTemperature();
+                                    IFridge device = (IFridge)AllDevices[commands[1]];
+                                    device.DecreaseTemperature();
                                 }
-                                else if (new Heater(false, HeaterModes.inRoom, 25, 10, new Temperature(10, 0, 40), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                else if (Heater.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    Heater h = (Heater)allDevices[commands[1]];
-                                    h.DecreaseTemperature();
+                                    IHeater device = (IHeater)AllDevices[commands[1]];
+                                    device.DecreaseTemperature();
                                 }
-                                else if (new AirConditioning(false, AirConditioningModes.cooling, 20, 5, 20, new Temperature(20, -5, 35), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                else if (AirConditioning.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    AirConditioning a = (AirConditioning)allDevices[commands[1]];
-                                    a.DecreaseTemperature();
+                                    IAirConditioning device = (IAirConditioning)AllDevices[commands[1]];
+                                    device.DecreaseTemperature();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "incr_s":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new TV(false, new Sound(10, 0, 100, 1), new Channel(1, 1, 100)).GetType() == allDevices[commands[1]].GetType())
+                                if (TV.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    TV t = (TV)allDevices[commands[1]];
-                                    t.IncreaseSound();
+                                    ITV device = (ITV)AllDevices[commands[1]];
+                                    device.IncreaseSound();
                                 }
-                                else if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                else if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                                    mp.IncreaseSound();
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
+                                    device.IncreaseSound();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "decr_s":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new TV(false, new Sound(10, 0, 100, 1), new Channel(1, 1, 100)).GetType() == allDevices[commands[1]].GetType())
+                                if (TV.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    TV t = (TV)allDevices[commands[1]];
-                                    t.DecreaseSound();
+                                    ITV device = (ITV)AllDevices[commands[1]];
+                                    device.DecreaseSound();
                                 }
-                                else if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                else if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                                    mp.DecreaseSound();
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
+                                    device.DecreaseSound();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "s_off":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new TV(false, new Sound(10, 0, 100, 1), new Channel(1, 1, 100)).GetType() == allDevices[commands[1]].GetType())
+                                if (TV.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    TV t = (TV)allDevices[commands[1]];
-                                    t.SoundOff();
+                                    ITV device = (ITV)AllDevices[commands[1]];
+                                    device.SoundOff();
                                 }
-                                else if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                else if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                                    mp.SoundOff();
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
+                                    device.SoundOff();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "s_on":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new TV(false, new Sound(10, 0, 100, 1), new Channel(1, 1, 100)).GetType() == allDevices[commands[1]].GetType())
+                                if (TV.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    TV t = (TV)allDevices[commands[1]];
-                                    t.SoundOn();
+                                    ITV device = (ITV)AllDevices[commands[1]];
+                                    device.SoundOn();
                                 }
-                                else if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                else if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                                    mp.SoundOn();
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
+                                    device.SoundOn();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "next_c":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new TV(false, new Sound(10, 0, 100, 1), new Channel(1, 1, 100)).GetType() == allDevices[commands[1]].GetType())
+                                if (TV.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    TV t = (TV)allDevices[commands[1]];
-                                    t.NextChannel();
+                                    ITV device = (ITV)AllDevices[commands[1]];
+                                    device.NextChannel();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "prev_c":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new TV(false, new Sound(10, 0, 100, 1), new Channel(1, 1, 100)).GetType() == allDevices[commands[1]].GetType())
+                                if (TV.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    TV t = (TV)allDevices[commands[1]];
-                                    t.PreviousChannel();
+                                    ITV device = (ITV)AllDevices[commands[1]];
+                                    device.PreviousChannel();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "sel_c":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new TV(false, new Sound(10, 0, 100, 1), new Channel(1, 1, 100)).GetType() == allDevices[commands[1]].GetType())
+                                if (TV.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    TV t = (TV)allDevices[commands[1]];
+                                    ITV tv = (ITV)AllDevices[commands[1]];
                                     Console.WriteLine("Введите номер канала: ");
                                     int temp;
                                     Int32.TryParse(Console.ReadLine(), out temp);
-                                    if (temp <= t.Channel.MaxChannelNumber && temp >= t.Channel.MaxChannelNumber)
+                                    if (temp <= tv.Channel.MaxChannelNumber && temp >= tv.Channel.MaxChannelNumber)
                                     {
-                                        t.SelectChannel(temp);
+                                        tv.SelectChannel(temp);
                                     }
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "next_t":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
+                                    IMediaPlayer mp = (IMediaPlayer)AllDevices[commands[1]];
                                     mp.NextTrack();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "prev_t":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                                    mp.PreviousTrack();
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
+                                    device.PreviousTrack();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "sel_t":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
                                     Console.WriteLine("Введите название аудиотрека: ");
                                     string s = Console.ReadLine();
-                                    if (mp.SelectTrack(s)) { }
+                                    if (device.SelectTrack(s)) { }
                                     else
                                     {
                                         Console.WriteLine("Нет диска или трек не найден");
@@ -358,83 +367,82 @@ namespace SmartHouse
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "play":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                                    mp.Play();
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
+                                    device.Play();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "pause":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                                    mp.Pause();
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
+                                    device.Pause();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "stop":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                                    mp.Stop();
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
+                                    device.Stop();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "extr_disc":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                                    mp.ExtractDisc();
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
+                                    device.ExtractDisc();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "ins_disc":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new MediaPlayer(false, PlayerModes.stop, false, new Sound(10, 0, 100, 1), new TrackControl(1), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (MediaPlayer.GetType() == AllDevices[commands[1]].GetType())
                                 {
-
-                                    MediaPlayer mp = (MediaPlayer)allDevices[commands[1]];
-                                    if (mp.DiscPresence == false)
+                                    IMediaPlayer device = (IMediaPlayer)AllDevices[commands[1]];
+                                    if (device.DiscPresence == false)
                                     {
                                         List<string> numbers = new List<string>();
                                         Console.WriteLine("Введите название диска");
@@ -446,7 +454,7 @@ namespace SmartHouse
                                         }
                                         string[] trac = numbers.ToArray<string>();
                                         trac[trac.Length - 1] = null;
-                                        mp.InsertDisc(allDisc[diskName]);
+                                        device.InsertDisc(new Disc(diskName, trac));
                                     }
                                     else
                                     {
@@ -459,204 +467,250 @@ namespace SmartHouse
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "set_ml_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new Fridge(false, FridgeModes.normal, 6, 4, 7, 0, new Temperature(4, 0, 8), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (Fridge.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    Fridge f = (Fridge)allDevices[commands[1]];
-                                    f.SetManualMode();
+                                    IFridge device = (IFridge)AllDevices[commands[1]];
+                                    device.SetManualMode();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "set_nl_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new Fridge(false, FridgeModes.normal, 6, 4, 7, 0, new Temperature(4, 0, 8), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (Fridge.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    Fridge f = (Fridge)allDevices[commands[1]];
-                                    f.SetNormalMode();
+                                    IFridge device = (IFridge)AllDevices[commands[1]];
+                                    device.SetNormalMode();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "set_wm_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new Fridge(false, FridgeModes.normal, 6, 4, 7, 0, new Temperature(4, 0, 8), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (Fridge.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    Fridge f = (Fridge)allDevices[commands[1]];
-                                    f.SetWarmMode();
+                                    IFridge device = (IFridge)AllDevices[commands[1]];
+                                    device.SetWarmMode();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "set_lt_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new Fridge(false, FridgeModes.normal, 6, 4, 7, 0, new Temperature(4, 0, 8), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (Fridge.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    Fridge f = (Fridge)allDevices[commands[1]];
-                                    f.SetLowTemperatureMode();
+                                    IFridge device = (IFridge)AllDevices[commands[1]];
+                                    device.SetLowTemperatureMode();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "set_ff_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (Freezer.GetType() == AllDevices[commands[1]].GetType())
                             {
-                                if (new Freezer(FreezerModes.freezing, -24, -18, -12, new Temperature(-18, -24, -12), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                IFreezer device = (IFreezer)AllDevices[commands[1]];
+                                if (device.PresenceFridge)
                                 {
-                                    Freezer f = (Freezer)allDevices[commands[1]];
-                                    f.SetFastFreezeMode();
+                                    IFridge device1 = (IFridge)AllDevices[device.CurrentFridge];
+                                    if (device1.Power)
+                                    {
+                                        device.SetFastFreezeMode();
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Сначала включите холодильник");
+                                        Console.WriteLine("Нажмите любую клавишу для продолжения");
+                                        Console.ReadKey();
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Для переключения режима морозильная камера должна быть подключена к холодильнику");
+                                    Console.WriteLine("Нажмите любую клавишу для продолжения");
+                                    Console.ReadKey();
                                 }
                             }
-                            else
-                            {
-                                Console.WriteLine("Сначала вксючите устройство");
-                                Console.WriteLine("Нажмите любую клавишу для продолжения");
-                                Console.ReadKey();
-                            }
+
                             break;
                         case "set_fg_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (Freezer.GetType() == AllDevices[commands[1]].GetType())
                             {
-                                if (new Freezer(FreezerModes.freezing, -24, -18, -12, new Temperature(-18, -24, -12), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                IFreezer device = (IFreezer)AllDevices[commands[1]];
+                                if (device.PresenceFridge)
                                 {
-                                    Freezer f = (Freezer)allDevices[commands[1]];
-                                    f.SetFreezingMode();
+                                    IFridge device1 = (IFridge)AllDevices[device.CurrentFridge];
+                                    if (device1.Power)
+                                    {
+                                        device.SetFreezingMode();
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Сначала включите холодильник");
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                Console.WriteLine("Сначала вксючите устройство");
-                                Console.WriteLine("Нажмите любую клавишу для продолжения");
-                                Console.ReadKey();
+                                else
+                                {
+                                    Console.WriteLine("Для переключения режима морозильная камера должна быть подключена к холодильнику");
+                                }
                             }
                             break;
                         case "set_st_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (Freezer.GetType() == AllDevices[commands[1]].GetType())
                             {
-                                if (new Freezer(FreezerModes.freezing, -24, -18, -12, new Temperature(-18, -24, -12), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                IFreezer device = (IFreezer)AllDevices[commands[1]];
+                                if (device.PresenceFridge)
                                 {
-                                    Freezer f = (Freezer)allDevices[commands[1]];
-                                    f.SetStorageMode();
+                                    IFridge device1 = (IFridge)AllDevices[device.CurrentFridge];
+                                    if (device1.Power)
+                                    {
+                                        device.SetStorageMode();
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Сначала включите холодильник");
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                Console.WriteLine("Сначала вксючите устройство");
-                                Console.WriteLine("Нажмите любую клавишу для продолжения");
-                                Console.ReadKey();
+                                else
+                                {
+                                    Console.WriteLine("Для переключения режима морозильная камера должна быть подключена к холодильнику");
+                                }
                             }
                             break;
                         case "set_ir_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new Heater(false, HeaterModes.inRoom, 25, 10, new Temperature(10, 0, 40), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (Heater.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    Heater f = (Heater)allDevices[commands[1]];
-                                    f.SetModeInRoom();
+                                    IHeater device = (IHeater)AllDevices[commands[1]];
+                                    device.SetModeInRoom();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "set_os_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new Heater(false, HeaterModes.inRoom, 25, 10, new Temperature(10, 0, 40), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (Heater.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    Heater f = (Heater)allDevices[commands[1]];
-                                    f.SetModeOnStreet();
+                                    IHeater device = (IHeater)AllDevices[commands[1]];
+                                    device.SetModeOnStreet();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "set_cl_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new AirConditioning(false, AirConditioningModes.cooling, 20, 5, 20, new Temperature(20, -5, 35), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (AirConditioning.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    AirConditioning f = (AirConditioning)allDevices[commands[1]];
-                                    f.SetModeCooling();
+                                    IAirConditioning device = (IAirConditioning)AllDevices[commands[1]];
+                                    device.SetModeCooling();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "set_ht_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new AirConditioning(false, AirConditioningModes.cooling, 20, 5, 20, new Temperature(20, -5, 35), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (AirConditioning.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    AirConditioning f = (AirConditioning)allDevices[commands[1]];
-                                    f.SetModeHeating();
+                                    IAirConditioning device = (IAirConditioning)AllDevices[commands[1]];
+                                    device.SetModeHeating();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
                         case "set_vt_m":
-                            if (allDevices[commands[1]].Power == true)
+                            if (AllDevices[commands[1]].Power == true)
                             {
-                                if (new AirConditioning(false, AirConditioningModes.cooling, 20, 5, 20, new Temperature(20, -5, 35), new Mode()).GetType() == allDevices[commands[1]].GetType())
+                                if (AirConditioning.GetType() == AllDevices[commands[1]].GetType())
                                 {
-                                    AirConditioning f = (AirConditioning)allDevices[commands[1]];
-                                    f.SetModeVentilation();
+                                    IAirConditioning device = (IAirConditioning)AllDevices[commands[1]];
+                                    device.SetModeVentilation();
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сначала вксючите устройство");
+                                Console.WriteLine("Сначала включите устройство");
                                 Console.WriteLine("Нажмите любую клавишу для продолжения");
                                 Console.ReadKey();
                             }
                             break;
+                        case "con_f":
+                            Console.WriteLine("Введите название холодильника к которому хотите подключить морозильную камеру");
+                            string fridgeName = Console.ReadLine();
+                            IFridge newF = (IFridge)AllDevices[fridgeName];
+                            if (newF.PresenceFreezer)
+                            {
+                                Console.WriteLine("К данному холодильнику уже подключена морозильная камера камера: " + newF.CurrentFreezerName);
+                            }
+                            else
+                            {
+                                IFreezer newFz = (IFreezer)AllDevices[commands[1]];
+                                newF.ConnectFreezer(commands[1]);
+                                newFz.ConnectFridge(fridgeName);
+                            }
 
+                            break;
+                        case "dis_f":
+                            Console.WriteLine("Введите название холодильника от которого хотите отключить морозильную камеру");
+                            string fridgeName1 = Console.ReadLine();
+                            IFridge newFg = (IFridge)AllDevices[fridgeName1];
+                            IFreezer newFrz = (IFreezer)AllDevices[commands[1]];
+                            newFg.DisableFreezer(commands[1]);
+                            newFrz.DisableFrifge(fridgeName1);
+                            break;
                         default:
                             Console.WriteLine("Нажмите любую клавишу для продолжения");
                             Console.ReadKey();
@@ -697,6 +751,8 @@ namespace SmartHouse
             Console.WriteLine("\tПоставить на паузу (Применимо только для: MediaPlayer): pause <nameDevice>");
             Console.WriteLine("\tОстановить проигрывание трека (Применимо только для: MediaPlayer): stop <nameDevice>");
             Console.WriteLine("\tПродолжить воспроизведение трека (Применимо только для: MediaPlayer): play <nameDevice>");
+            Console.WriteLine("\tПодключить морозильную камеру к холодильнику (Применимо только для: Freezer): con_f <nameDevice>");
+            Console.WriteLine("\tОтключить морозильную камеру от холодильника (Применимо только для: Freezer): dis_f <nameDevice>");
             Console.WriteLine("\tВыйти из программы: exit");
             Console.WriteLine("Нажмите любую клавишу для продолжения");
         }

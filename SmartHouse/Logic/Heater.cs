@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SmartHouse
 {
-    public class Heater : Device
+    public class Heater : Device, IHeater
     {
         public int TempForModeStreet { get; set; }
         public int TempForModeInRoom { get; set; }
@@ -53,6 +53,31 @@ namespace SmartHouse
         {
             Mode.CurrentMode = (UniversalMode)HeaterModes.onStreet;
             Temperature.CurrentTemperature = TempForModeStreet;
+        }
+
+        public override string ToString()
+        {
+            string power;
+            string mode = "";
+            string data = "";
+            if (Power == true)
+            {
+                power = "включен";
+            }
+            else
+            {
+                power = "выключен";
+            }
+            if (Mode.CurrentMode == (UniversalMode)HeaterModes.inRoom)
+            {
+                mode = "В помещении";
+            }
+            else if (Mode.CurrentMode == (UniversalMode)HeaterModes.onStreet)
+            {
+                mode = "На улице";
+            }
+            data = "Состояние: " + power + ", Режим: " + mode + ", Температура: " + Temperature.CurrentTemperature;
+            return data;
         }
     }
 }
