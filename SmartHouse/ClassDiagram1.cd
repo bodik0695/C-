@@ -13,6 +13,7 @@
       <HashCode>AAAAAIAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAIA=</HashCode>
       <FileName>Logic\Device.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="SmartHouse.Fridge">
     <Position X="5" Y="13" Width="1.5" />
