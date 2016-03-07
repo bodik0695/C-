@@ -25,7 +25,7 @@ namespace SmartHouse
             TV = tV;
             MediaPlayer = mediaPlayer;
         }
-        public void ConsoleMenu()
+        public virtual void ConsoleMenu()
         {
             DeviceCreator dc = new DeviceCreator();
             IDictionary<string, IDevice> AllDevices = new Dictionary<string, IDevice>();
