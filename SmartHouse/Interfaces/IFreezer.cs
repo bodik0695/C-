@@ -1,6 +1,6 @@
 ﻿namespace SmartHouse
 {
-    public interface IFreezer : IDevice
+    public interface IFreezer : IFridge
     {
         string CurrentFridge { get; set; }
         bool PresenceFridge { get; set; }
