@@ -12,6 +12,5 @@
         void SetStorageMode();
         void ConnectFridge(string fridgeName);
         void DisableFrifge(string fridgeName);
-        string ToString();
     }
 }
