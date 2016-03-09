@@ -37,6 +37,7 @@ namespace SmartHouse
             AllDevices.Add("MediaPlayer", MediaPlayer);
             while (true)
             {
+
                 Console.Clear();
                 foreach (var name in AllDevices)
                 {
