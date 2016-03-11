@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AD79386F-E6BD-480A-BC88-C18147F7AC04}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Base</RootNamespace>
+    <AssemblyName>Base</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Base\BIN\BaseEmployeesBIN.cs" />
+    <Compile Include="Base\XML\BaseEmployeesXML.cs" />
+    <Compile Include="Creation\Creation.cs" />
+    <Compile Include="Graphic\Menu.cs" />
+    <Compile Include="Interfeces\BIN\IBaseEmployeesBin.cs" />
+    <Compile Include="Interfeces\BIN\ICreateEmployerRecordWithBIN.cs" />
+    <Compile Include="Interfeces\BIN\IRemoveEmployeeRecordWithBIN.cs" />
+    <Compile Include="Interfeces\BIN\IViewAllEmployeeRecordsWithBIN.cs" />
+    <Compile Include="Interfeces\BIN\IViewRecordSpecificEmployeebin.cs" />
+    <Compile Include="Interfeces\IEmployee.cs" />
+    <Compile Include="Interfeces\XML\IBaseEmployeesXML.cs" />
+    <Compile Include="Interfeces\XML\ICreateEmployerRecordWithXML.cs" />
+    <Compile Include="Interfeces\XML\IRemoveEmployeeRecordWithXML.cs" />
+    <Compile Include="Interfeces\XML\IViewAllEmployeeRecordsWithXML.cs" />
+    <Compile Include="Interfeces\XML\IViewRecordSpecificEmployeeXML.cs" />
+    <Compile Include="Modules\BIN\CreateEmployerRecordBIN.cs" />
+    <Compile Include="Modules\BIN\RemoveEmployeeRecordBIN.cs" />
+    <Compile Include="Modules\BIN\ViewAllEmployeeRecordsBIN.cs" />
+    <Compile Include="Modules\BIN\ViewRecordSpecificEmployeeBIN.cs" />
+    <Compile Include="Modules\Employee.cs" />
+    <Compile Include="Modules\XML\CreateEmployerRecordXML.cs" />
+    <Compile Include="Modules\XML\RemoveEmployeeRecordXML.cs" />
+    <Compile Include="Modules\XML\ViewAllEmployeeRecordsXML.cs" />
+    <Compile Include="Modules\XML\ViewRecordSpecificEmployeeXML.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="bin\Debug\Base.exe.config" />
+    <None Include="bin\Debug\Base.vshost.exe.config" />
+    <None Include="bin\Debug\Base.vshost.exe.manifest" />
+    <None Include="bin\Debug\baseEmployees.dat" />
+    <None Include="bin\Debug\BaseEmployees.exe.config" />
+    <None Include="bin\Debug\BaseEmployees.vshost.exe.config" />
+    <None Include="bin\Debug\BaseEmployees.vshost.exe.manifest" />
+    <None Include="bin\Debug\option.ini" />
+    <None Include="ClassDiagram1.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Base.vshost.exe" />
+    <Content Include="bin\Debug\BaseEmployees.exe" />
+    <Content Include="bin\Debug\BaseEmployees.pdb" />
+    <Content Include="bin\Debug\BaseEmployees.vshost.exe" />
+    <Content Include="bin\Debug\baseEmployees.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Release\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

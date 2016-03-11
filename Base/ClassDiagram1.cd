@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Base.BaseEmployeesBIN">
+    <Position X="10.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAIAAAAAAABAAAAAAAAEQAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\BIN\BaseEmployeesBIN.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Base.Menu">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAABAAAACCAAAgQIAAAAAAAKBAAAAQAA=</HashCode>
+      <FileName>Graphic\Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Base.BaseEmployeesXML">
+    <Position X="3.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAIAAAAAAABAAAAAAAAEQAAAAAAAAAAAA=</HashCode>
+      <FileName>Base\XML\BaseEmployeesXML.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Base.Creation">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAEAAAAAAAAQCAAACAYAAABAAAAAAAAAAAABQAAQA=</HashCode>
+      <FileName>Creation\Creation.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Base.CreateEmployerRecordBIN">
+    <Position X="8.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\BIN\CreateEmployerRecordBIN.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Base.RemoveEmployeeRecordBIN">
+    <Position X="10.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\BIN\RemoveEmployeeRecordBIN.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Base.ViewAllEmployeeRecordsBIN">
+    <Position X="12" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\BIN\ViewAllEmployeeRecordsBIN.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Base.ViewRecordSpecificEmployeeBIN">
+    <Position X="13.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\BIN\ViewRecordSpecificEmployeeBIN.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Base.CreateEmployerRecordXML">
+    <Position X="0.5" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Modules\XML\CreateEmployerRecordXML.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Base.RemoveEmployeeRecordXML">
+    <Position X="2.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Modules\XML\RemoveEmployeeRecordXML.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Base.ViewAllEmployeeRecordsXML">
+    <Position X="4" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\XML\ViewAllEmployeeRecordsXML.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Base.ViewRecordSpecificEmployeeXML">
+    <Position X="5.75" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Modules\XML\ViewRecordSpecificEmployeeXML.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="Base.IEmployee">
+    <Position X="7" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAACAAAAAgAEAAAAQABAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Interfeces\IEmployee.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Base.IBaseEmployeesXML">
+    <Position X="3.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAIAAAAAAABAAAAAAAAEQAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfeces\XML\IBaseEmployeesXML.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Base.IBaseEmployeesBIN">
+    <Position X="10.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAIAAAAAAABAAAAAAAAEQAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfeces\BIN\IBaseEmployeesBin.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Base.ICreateEmployerRecordWithXML">
+    <Position X="0.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>Interfeces\XML\ICreateEmployerRecordWithXML.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Base.IRemoveEmployeeRecordWithXML">
+    <Position X="2.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Interfeces\XML\IRemoveEmployeeRecordWithXML.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Base.IViewAllEmployeeRecordsWithXML">
+    <Position X="4" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfeces\XML\IViewAllEmployeeRecordsWithXML.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Base.IViewRecordSpecificEmployeeXML">
+    <Position X="5.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfeces\XML\IViewRecordSpecificEmployeeXML.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Base.ICreateEmployerRecordWithBIN">
+    <Position X="8.5" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfeces\BIN\ICreateEmployerRecordWithBIN.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Base.IRemoveEmployeeRecordWithBIN">
+    <Position X="10.25" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfeces\BIN\IRemoveEmployeeRecordWithBIN.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Base.IViewAllEmployeeRecordsWithBIN">
+    <Position X="12" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfeces\BIN\IViewAllEmployeeRecordsWithBIN.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Base.IViewRecordSpecificEmployeeBIN">
+    <Position X="13.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfeces\BIN\IViewRecordSpecificEmployeebin.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
